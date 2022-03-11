@@ -1,3 +1,6 @@
 run "pip install -r requirments.txt" to install all the packeges used in this project
 
-django==2.0.3
+django==
+css
+js
+
