@@ -11,11 +11,11 @@ urlpatterns = [
     path('userprofile', views.userprofile, name='userprofile'),
     path('create', views.PostCreateView.as_view(), name='create'),
     path('thanks', views.thanks, name='thanks'),
+    path('search', views.search, name='search'),
     path('update/<int:pk>', views.PostUpdateView.as_view(), name='update'),
     path('delete/<int:pk>', views.PostDeleteView.as_view(), name='delete'),
     path('comment', views.CommentCreateView.as_view(), name='comment'),
     path("list", views.list, name='list'),
-    # path("showposts", views.showposts, name='showposts'),
     path('bloghome', views.bloghome, name='bloghome'),
     path('detail/<int:pk>', views.detail, name='post-detail')
 ]

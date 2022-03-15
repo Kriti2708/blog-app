@@ -10,20 +10,14 @@ from django.core.paginator import Paginator
 def home(request):
     Post_list = Post.objects.all()
     paginator = Paginator(Post_list, 2)
-    page_number = request.GET.get('page',1)
+    page_number = request.GET.get('page', 1)
     page_obj = paginator.get_page(page_number)
     return render(request, 'home/home.html', {'page_obj': page_obj})
+
 
 def detail(request, pk):
     post = Post.objects.get(id=pk)
     return render(request, 'home/detail.html', {'post': post})
-
-# def showposts(request, post_id):
-#     post_list = Post.objects.filter(post_id=post_id).order_by('author')
-#     paginator = Paginator(post_list, 1)
-#     page_number = request.GET.get('page')
-#     page_obj = paginator.get_page(page_number)
-#     return render(request, 'home/list.html', {'page_obj':page_obj})
 
 
 def list(request):
@@ -43,11 +37,22 @@ def userprofile(request):
 
 
 def bloghome(request):
-    return render(request, 'home/bloghome.html')
+    Post_list = Post.objects.all()
+    paginator = Paginator(Post_list, 2)
+    page_number = request.GET.get('page', 1)
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'home/bloghome.html', {'page_obj': page_obj})
 
 
 def thanks(request):
     return render(request, 'home/thanks.html')
+
+
+def search(request):
+    q = request.GET['q']
+    allPosts = Post.objects.filter(title__icontains=q)
+    params = {'allPosts': allPosts}
+    return render(request, 'home/search.html', params)
 
 
 class PostCreateView(CreateView):
