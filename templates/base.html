@@ -23,30 +23,28 @@
               <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/about">About</a>
+              <a class="nav-link" href="{% url 'blogapp:contact' %}">Contact us</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/contact">Contact us</a>
+              <a class="nav-link" href="{% url 'account_signup' %}">signup</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'account_login' %}">login</a>
+            </li>
+            <li class="nav-item">
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Blogs</a>
                 <div class="dropdown-menu">  
-                <a class="dropdown-item" href="/create">Post a Blog</a> {% comment %} asking for reverse value {% endcomment %}
-                <a class="dropdown-item" href="/update">Update blog</a>
-                <a class="dropdown-item" href="/delete">Delete a blog</a>
-                <a class="dropdown-item" href="{% url 'blogapp:comment' %}">comment</a>
-                <a class="dropdown-item" href="{% url 'blogapp:bloghome' %}">Read blogs</a>
+                <a class="dropdown-item" href="{% url 'blogapp:create' %}">Post a Blog</a> {% comment %} asking for reverse value {% endcomment %}
               </div>
           </ul>
           <form method="get" action="{% url 'blogapp:search' %}" class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="q">
             <button href="/search" class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
           </form>
-          <a href="/userprofile" target"blank" class="btn btn-outline-success m-2 my-sm-0" type="submit">User profile</a>
+          <a href="/user_dashboard" target"blank" class="btn btn-outline-success m-2 my-sm-0" type="submit">User profile</a>
         </div>
       </nav>
-
-
       {% block body %} 
       
       

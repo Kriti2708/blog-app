@@ -1,5 +1,6 @@
 from django import forms
 from .models import Post, Comment
+# from django.contrib.auth.forms import UserCreationForm
 
 
 class PostForm(forms.ModelForm):

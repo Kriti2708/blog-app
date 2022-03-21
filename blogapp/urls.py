@@ -6,7 +6,6 @@ app_name = 'blogapp'
 urlpatterns = [
     path('', views.home, name='home'),
     path('accounts/', include('allauth.urls')),
-    path('about', views.about, name='about'),
     path('contact', views.contact, name='contact'),
     path('userprofile', views.userprofile, name='userprofile'),
     path('create', views.PostCreateView.as_view(), name='create'),
@@ -14,8 +13,10 @@ urlpatterns = [
     path('search', views.search, name='search'),
     path('update/<int:pk>', views.PostUpdateView.as_view(), name='update'),
     path('delete/<int:pk>', views.PostDeleteView.as_view(), name='delete'),
-    path('comment', views.CommentCreateView.as_view(), name='comment'),
+    path('comment/<int:pk>', views.CommentCreateView.as_view(), name='comment'),
     path("list", views.list, name='list'),
+    path('signup', views.signup, name='signup'),
     path('bloghome', views.bloghome, name='bloghome'),
-    path('detail/<int:pk>', views.detail, name='post-detail')
+    path('user_dashboard', views.signup, name='user_dashboard'),
+    path('detail/<int:pk>', views.detail, name='post_detail')
 ]
