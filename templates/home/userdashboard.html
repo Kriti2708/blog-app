@@ -1,0 +1,70 @@
+{%extends 'base.html'%}
+
+{% block body %}
+{% if user.is_authenticated%}
+<h3 class="my-5" align="center">User Dashboard page</h3>
+<div class="col=sm-10 m-5 p-5">
+  {% comment %} user profile {% endcomment %}
+  <div class="card mb-3">
+    <img class="card-img-top" width="200" height="200" src=".../100px180/" alt="profile image">
+    <div class="card-body" align="center">
+      <h5 class="card-title">username</h5>
+      <p class="card-text">bio</p>
+    </div>
+  </div>
+  {% comment %} blogs posted by the user {% endcomment %}
+
+
+  {%if posts%}
+<table class="table table-hover table-dark">
+  <thead>
+     <tr class="text-center">
+      {% comment %} <th scope="col" style="width:2%">ID</th> {% endcomment %}
+      <th scope="col" style="width:2%">Username</th>
+      <th scope="col" style="width:2%">Posted on</th>
+      <th scope="col" style="width:2%">Category</th>
+      <th scope="col" style="width:2%">Title</th>
+      <th scope="col" style="width:2%">Content</th>
+      <th scope="col" style="width:2%">Actions</th>
+    </tr> 
+  </thead>
+  <tbody>
+    {%for post in posts%}
+    <tr align="center">
+      {% comment %} <th scope="row">{{post.id}}</th> {% endcomment %}
+      <td>{{ post.author}}</td>
+      <td>{{ post.posted_on }}</td>
+      <td>{{ post.category }}</td>
+      {% comment %} <td><img src={{post.image.url}} width="300" height="300"/></td> {% endcomment %}
+      <td>{{ post.title }}</td>
+      <td>{{ post.content }}</td>
+      <td>
+        <div class="btn-group" role="group" aria-label="Basic example">
+          {% if perms.blogapp.delete_post and user == post.author %}
+          <a type="button" href="{% url 'blogapp:delete' post.pk%}" class="btn btn-secondary">Delete</a> 
+          {% else %}
+          <p>No delete permission </p>
+          {% endif %}
+
+          {% if perms.blogapp.change_post and user == post.author %}
+          <a type="button" href="{% url 'blogapp:update' post.pk%}" class="btn btn-secondary">Edit</a> 
+          {% else %}
+          <p> No edit permission </p>
+          {% endif %}
+        </div>
+    </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+{% else %}
+<h4> No records</h4>
+{% endif %}
+{%else%}
+<div class="container m-5" align="center">
+  <h1>Login to first</h1>
+  <a type="button" class="btn btn-secondary" href="{% url 'account_login' %}">login</a> 
+</div>
+{% endif %}
+{% endblock %}

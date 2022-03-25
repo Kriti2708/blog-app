@@ -1,16 +1,31 @@
 {%extends 'base.html'%}
 
 {% block body %}
-<form class = "container my-2" action="" method="post">
+<form class = "container my-3" action="" method="post">
   {%csrf_token%}
   {{form.as_p}}
   <input type="submit" value="submit">
 </form>
-<h3>Active comments</h3>
+<h2>Active comments</h2>
+<h3>{{ comments.count }} comments</h3>
 <ul>
   {% for comment in comments %}
-    <li>{{ comment.body }}</li>
+  <div class="comments" style="padding: 10px;">
+    <p class="font-weight-bold">
+      <span class=" text-muted font-weight-normal">{{ comment.user }}</span></br>
+      <span class=" font-weight-normal">{{ comment.body }}</span></br>
+      <span class=" text-muted font-weight-normal">{{ comment.posted_on }}</span>
+      <a class="btn btn-primary" href="{% url 'blogapp:comment-delete' comment.post.pk comment.pk %}" role="button">delete comment</a>
+    </p>
+  </div>
   {% endfor %}
+  
+  {% comment %} <div class="container m-5" align="center">
+    <h1>Login to Comment</h1>
+    <a type="button" class="btn btn-secondary" href="{% url 'account_login' %}">login</a> 
+  </div> {% endcomment %}
+  
 </ul>
+
 
 {% endblock  %}

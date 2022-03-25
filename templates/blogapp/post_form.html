@@ -2,10 +2,16 @@
 
 {% block body %}
 
-<form class = "container my-2" action="" method="post">
+<form class = "container my-2" action="" method="post" enctype="multipart/form-data">
     {%csrf_token%}
+    {% if perms.blogapp.delete_post and user == post.author%}
     {{form.as_p}}
     <input type="submit" value="submit">
+    {%else%}
+    <div class="container m-5" align="center">
+        <h1>This is another users post</h1>
+      </div>
+    {%endif%}
 </form>
 
 {% endblock  %}

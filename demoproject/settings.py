@@ -70,6 +70,22 @@ TEMPLATES = [
     },
 ]
 
+MEDIA_ROOT  = os.path.join(BASE_DIR, 'media')
+
+MEDIA_URL = '/media/'
+
+# SENDGRID_API_KEY = "sdfh8734rb34ry83467"
+
+# EMAIL_HOST = 'smtp.sendgrid.net'
+# EMAIL_HOST_USER = 'apikey' # this is exactly the value 'apikey'
+# EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Path where media is stored
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
 AUTHENTICATION_BACKENDS = [
     
     # Needed to login by username in Django admin, regardless of `allauth`

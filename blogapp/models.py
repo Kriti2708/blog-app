@@ -37,11 +37,14 @@ class Comment(BlogTimeStamp):
    posted_on = models.DateTimeField(auto_now=True)
 
    def __str__(self):
-      return f'{self.user}'
+      return 'Comment by {}'.format(self.user)
 
 
 class Profile(BlogTimeStamp):
    user = models.OneToOneField(User, on_delete=models.CASCADE)
    contact = models.IntegerField(null=True, blank=True)
-   picture = models.ImageField(upload_to='images/')
+   picture = models.ImageField(upload_to='media/')
    bio = models.TextField(null=True, blank=True)
+
+   def __str__(self):
+      return f'{self.user}'
