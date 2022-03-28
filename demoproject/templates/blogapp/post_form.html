@@ -1,0 +1,17 @@
+{%extends 'base.html'%}
+
+{% block body %}
+
+<form class = "container my-2" action="" method="post" enctype="multipart/form-data">
+    {%csrf_token%}
+    
+    {{form.as_p}}
+    <input type="submit" value="submit">
+    
+    {% comment %} <div class="container m-5" align="center">
+        <h1>This is another users post</h1>
+      </div> {% endcomment %}
+   
+</form>
+
+{% endblock  %}
