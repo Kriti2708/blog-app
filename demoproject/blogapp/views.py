@@ -1,17 +1,26 @@
+from smtplib import SMTP
 from django.urls import reverse_lazy, reverse
 from django.shortcuts import render
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Comment, Post
-from .forms import PostForm, CommentForm
+from .models import Comment, Post, Profile
+from .forms import PostForm, CommentForm, ProfileForm
 from django.core.paginator import Paginator
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
-from django.core.mail import send_mail
-# from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+# from django.core.mail import send_mail, send_mass_mail
+# from django.contrib import messages
+# # from django.contrib.auth.decorators import login_required
 # from operator import is_not
 # from django.http import HttpResponseRedirect
-# from django.core.mail import send_mail
-# send_mail('Subject here', 'Here is the message.', 'from@example.com', ['to@example.com'], fail_silently=False)
 
+# send_mail(
+#             'subject', 
+#             'body of the message', 
+#             'sender@example.com', 
+#             [
+#                 'receiver1@example.com', 
+#                 'receiver2@example.com'
+#             ]
+#         ) 
 
 def home(request):
     Post_list = Post.objects.all()
@@ -44,12 +53,17 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
     success_url = "/thanks"
 
-class PostDeleteView(DeleteView):
+
+class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
     success_url = reverse_lazy('blogapp:home')
 
+    def test_func(self):
+        obj = self.get_object()
+        return obj.author == self.request.user
 
-class CommentCreateView(CreateView):
+
+class CommentCreateView(LoginRequiredMixin, CreateView):
     template_name = "blogapp/comment.html"
     model = Comment
     form_class = CommentForm
@@ -75,10 +89,21 @@ class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
     def get_success_url(self):
         return reverse_lazy('blogapp:comment', kwargs={'pk': self.kwargs['post_id']})
-    
+
     def test_func(self):
         obj = self.get_object()
         return obj.user == self.request.user
+
+
+class ProfileUpdateView(UpdateView):
+    model = Profile
+    form_class = ProfileForm
+    template_name = "blogapp/profile_form.html"
+    success_url = reverse_lazy('blogapp:userdashboard')
+
+
+def profile(request):
+    return render(request, 'home/profile.html')
 
 
 def detail(request, pk):
@@ -90,19 +115,32 @@ def signup(request):
     return render(request, 'home/signup.html')
 
 
-def contact(request):
-    if request_method == "POST":
-        message_name = request.POST['message-name']
-        message_email = request.POST['message-email']
-        message = request.POST['message']
+# class SendFormEmail(View):
 
-        send_mail(
-            message_name,  # subject
-            message,  # message
-            message_email,  # from email
-            ['kriti@bestpeers.com'],   # to email
-            )
-    return render(request, 'home/contact.html', {'message_name': message_name})
+#     def  get(self, request):
+
+#         # Get the form data 
+#         name = request.GET.get('name', None)
+#         email = request.GET.get('email', None)
+#         message = request.GET.get('message', None)
+
+#         # Send Email
+#         send_mail(
+#             'Subject - Django Email Testing', 
+#             'Hello ' + name + ',\n' + message, 
+#             'sender@example.com', # Admin
+#             [
+#                 email,
+#             ]
+#         ) 
+
+#         # Redirect to same page after form submit
+#         messages.success(request, ('Email sent successfully.'))
+#         return render('home') 
+
+
+def contact(request):
+    return render(request, 'home/contact.html')
 
 
 def userdashboard(request):

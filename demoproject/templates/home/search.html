@@ -23,7 +23,7 @@
         <div class="mb-1 text-muted">{{post.posted_on}}</div>
         <p class="card-text mb-auto">{{post.content}}</p>
         <div class="my-2">
-            <a href="{% url 'blogapp:comment' %}" role="button" class="btn btn-primary" >Add a comment</a>
+            <a href="{% url 'blogapp:comment' post.pk%}" role="button" class="btn btn-primary" >Add a comment</a>
             <a href="{% url 'blogapp:post_detail' post.pk%}" role="button" class="btn btn-primary" >Continue reading</a>
         </div>
 </div>

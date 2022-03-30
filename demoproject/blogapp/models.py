@@ -22,10 +22,9 @@ class Post(BlogTimeStamp):
    title = models.CharField(max_length=100)
    content = models.TextField(max_length=2000, null=True, blank=True)
    slug = models.SlugField(max_length=1000, null=True, blank=True)
-   image = models.ImageField(upload_to='images/', null=True, blank=True)
+   image = models.ImageField(upload_to='images', null=True, blank=True)
    posted_on = models.DateTimeField(auto_now=True)
    category = models.ManyToManyField(Category)
-
 
    def __str__(self):
       return f'{self.title}'
