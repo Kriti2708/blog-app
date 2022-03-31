@@ -10,7 +10,7 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('accounts/', include('allauth.urls')),
     # path('send-from-email/', views.SendFormEmail.as_view(), name='sendemail'),
-    path('contact/', views.contact, name='contact'),
+    path('contact', views.contact, name='contact'),
     path('create', views.PostCreateView.as_view(), name='create'),
     path('thanks', views.thanks, name='thanks'),
     path('search', views.search, name='search'),

@@ -14,6 +14,16 @@ SECRET_KEY = 'g(1#1sb+5@jm)39yujnm&b(7_phm3f45s(pz4wmlyb@3#&m&j#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_USE_TLS = True
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_HOST_USER = "baghelkriti7@gmail.com"
+EMAIL_HOST_PASSWORD = "Kriti@123"
+EMAIL_PORT = 587
+EMAIL_USE_SSL = False
+
+
 ALLOWED_HOSTS = []
 
 # Application definition
@@ -71,15 +81,6 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
-
-SENDGRID_API_KEY = os.getenv('SENDGRID_API_KEY', "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")
-EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_HOST_USER = 'apikey' # this is exactly the value 'apikey'
-EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Path where media is stored
 
@@ -143,7 +144,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
-STATIC_URL = '/static/'
 
 ACCOUNT_EMAIL_VERIFICATION = "none"
 LOGIN_REDIRECT_URL = "/"

@@ -6,7 +6,7 @@
 <div class="col=sm-10 m-5 p-5">
   {% comment %} user profile {% endcomment %}
   <div class="card mb-3">
-    <img  style="height:200px;width:300px;" src="{{profile.picture.url}}">
+    <img  style="height:300px;width:350px;" src="http://127.0.0.1:8000/media/media/image2.jpg">
     <div class="card-body" align="center">
       <h5 class="card-title">{{user.username}}</h5>
       <p class="card-text">{{user.profile.bio}}</p>
@@ -32,13 +32,11 @@
   <tbody>
     {%for post in posts%}
     <tr align="center">
-      {% comment %} <th scope="row">{{post.id}}</th> {% endcomment %}
       <td>{{ post.author}}</td>
       <td>{{ post.posted_on }}</td>
       <td>{{ post.category }}</td>
-      {% comment %} <img src={{post.image.url}} width="300" height="300"/>  {% endcomment %}
-      <td>{{ post.title }}</td>
-      <td>{{ post.content }}</td>
+      <td>{{ post.title }} <img src={{post.image.url}} width="50" height="50"/></td>
+      <td>{{ post.content }}</br><a href="{% url 'blogapp:post_detail' post.pk%}" class="stretched-link">Continue reading...</a></td>
       <td>
         <div class="btn-group" role="group" aria-label="Basic example">
           <a type="button" href="{% url 'blogapp:update' post.pk%}" class="btn btn-secondary">Edit</a> 

@@ -43,7 +43,7 @@ class Comment(BlogTimeStamp):
 class Profile(BlogTimeStamp):
    user = models.OneToOneField(User, on_delete=models.CASCADE)
    contact = models.IntegerField(null=True, blank=True)
-   picture = models.ImageField(upload_to='media/')
+   picture = models.ImageField(upload_to='media/', null=True, blank=True)
    bio = models.TextField(null=True, blank=True)
 
    def __str__(self):

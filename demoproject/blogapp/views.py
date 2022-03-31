@@ -1,4 +1,5 @@
-from smtplib import SMTP
+import email
+from email import message
 from django.urls import reverse_lazy, reverse
 from django.shortcuts import render
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -6,21 +7,12 @@ from .models import Comment, Post, Profile
 from .forms import PostForm, CommentForm, ProfileForm
 from django.core.paginator import Paginator
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-# from django.core.mail import send_mail, send_mass_mail
+from django.core.mail import send_mail
 # from django.contrib import messages
 # # from django.contrib.auth.decorators import login_required
 # from operator import is_not
 # from django.http import HttpResponseRedirect
 
-# send_mail(
-#             'subject', 
-#             'body of the message', 
-#             'sender@example.com', 
-#             [
-#                 'receiver1@example.com', 
-#                 'receiver2@example.com'
-#             ]
-#         ) 
 
 def home(request):
     Post_list = Post.objects.all()
@@ -115,31 +107,18 @@ def signup(request):
     return render(request, 'home/signup.html')
 
 
-# class SendFormEmail(View):
-
-#     def  get(self, request):
-
-#         # Get the form data 
-#         name = request.GET.get('name', None)
-#         email = request.GET.get('email', None)
-#         message = request.GET.get('message', None)
-
-#         # Send Email
-#         send_mail(
-#             'Subject - Django Email Testing', 
-#             'Hello ' + name + ',\n' + message, 
-#             'sender@example.com', # Admin
-#             [
-#                 email,
-#             ]
-#         ) 
-
-#         # Redirect to same page after form submit
-#         messages.success(request, ('Email sent successfully.'))
-#         return render('home') 
-
-
 def contact(request):
+    if request.method == "POST":
+        email = request.POST.get('email')
+        message = request.POST.get('message')
+
+        send_mail(
+            'subject ',
+            'test',
+            'baghelkriti@gmail.com', #from
+            ['admin@gmail.com'], #to 
+            fail_silently=False,
+        )
     return render(request, 'home/contact.html')
 
 

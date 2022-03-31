@@ -1,12 +1,15 @@
 {%extends 'base.html'%}
-{% block title %} This is post details {% endblock title %}
+{%block title%}Detail{%endblock title%}
+<h1> This is Blog detail</h1>
 {% block body %}
 <div class="container my-5" align="center">
 <p>Article by: {{ post.author }}</p>
 <p>{{ post.posted_on }}</p>
 <h1>{{ post.title }}</h1>
 
-{% comment %} <img src={{post.image.url}} width="300" height="300"/> {% endcomment %}
+{% comment %} {% if file_exists%} {% endcomment %}
+<img src={{post.image.url}} width="300" height="300"/>
+{% comment %} {% else %} {% endcomment %}
 
 <p>{{ post.content }}</p>
 <p>{{ post.slug }}</p>
