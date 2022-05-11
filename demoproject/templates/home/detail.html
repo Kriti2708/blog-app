@@ -7,9 +7,9 @@
 <p>{{ post.posted_on }}</p>
 <h1>{{ post.title }}</h1>
 
-{% comment %} {% if file_exists%} {% endcomment %}
+{% if post.image %}
 <img src={{post.image.url}} width="300" height="300"/>
-{% comment %} {% else %} {% endcomment %}
+{% endif %}
 
 <p>{{ post.content }}</p>
 <p>{{ post.slug }}</p>
